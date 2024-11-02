@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.4</version>
+		<version>3.2.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.kafka.webservice</groupId>
-	<artifactId>kafka-ws</artifactId>
+	<groupId>com.joboffer.producer.ws</groupId>
+	<artifactId>joboffer-producer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kafka-ws</name>
-	<description>Udemy formation kafka ws</description>
+	<name>job offer producer</name>
+	<description>job offer producer</description>
 	<url/>
 	<licenses>
 		<license/>
