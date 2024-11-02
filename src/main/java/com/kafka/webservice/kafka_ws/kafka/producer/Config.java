@@ -42,6 +42,13 @@ public class Config {
     @Value("${spring.kafka.producer.properties.request.timeout.ms}")
     private String requestTimeout;
 
+    @Value("${spring.kafka.producer.enable.idempotence}")
+    private String idempotence;
+
+    @Value("${spring.kafka.producer.max.in.flight.requests.per.connection}")
+    private String flightRequests;
+
+
     Map<String, Object> producerConfigs() {
         Map<String, Object> config = new HashMap<>();
 
@@ -52,6 +59,9 @@ public class Config {
         config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, deliveryTimeout);
         config.put(ProducerConfig.LINGER_MS_CONFIG, linger);
         config.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, requestTimeout);
+        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_DOC, idempotence);
+        config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, flightRequests);
+//        config.put(ProducerConfig.RETRIES_CONFIG, Integer.MAX_VALUE);
 
         return config;
     }
