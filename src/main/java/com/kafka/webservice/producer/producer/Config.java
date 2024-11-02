@@ -1,5 +1,6 @@
 package com.kafka.webservice.producer.producer;
 
+import com.joboffer.ws.core.JobOfferCreatedEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,7 +73,7 @@ public class Config {
 
 
     @Bean
-    KafkaTemplate <String, JobOfferCreatedEvent> kafkaTemplate() {
+    KafkaTemplate<String, JobOfferCreatedEvent> kafkaTemplate() {
         return new KafkaTemplate<String, JobOfferCreatedEvent>(producerFactory());
     }
     @Bean
