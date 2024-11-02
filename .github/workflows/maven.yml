@@ -27,8 +27,21 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+        # Create settings.xml from the secret
+    - name: Configure Maven settings.xml
+      env:
+        MAVEN_SETTINGS: ${{ secrets.MAVEN_SETTINGS }}
+      run: |
+        echo "$MAVEN_SETTINGS" > $HOME/.m2/settings.xml
+
+    # Create settings-security.xml from the secret
+    - name: Configure Maven settings-security.xml
+      env:
+        MAVEN_SETTINGS_SECURITY: ${{ secrets.MAVEN_SETTINGS_SECURITY }}
+      run: |
+        echo "$MAVEN_SETTINGS_SECURITY" > $HOME/.m2/settings-security.xml
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn clean package --settings $HOME/.m2/settings.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
