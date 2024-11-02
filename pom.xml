@@ -68,5 +68,10 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/DjarallahBrahim/jobOffer-producer-ws</url>
+		</repository>
+	</distributionManagement>
 </project>
