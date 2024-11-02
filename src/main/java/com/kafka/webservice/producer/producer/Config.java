@@ -1,6 +1,5 @@
 package com.kafka.webservice.producer.producer;
 
-import com.kafka.webservice.producer.events.JobOfferCreatedEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
