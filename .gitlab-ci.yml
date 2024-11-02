@@ -1,0 +1,66 @@
+# .gitlab-ci.yml
+
+stages:
+  - prepare
+  - build
+  - test
+  - package
+  - deploy
+
+# Cache dependencies to speed up builds
+cache:
+  paths:
+    - ~/.m2/repository  # Caching Maven dependencies if you're using Maven
+    - .gradle/  # Caching Gradle dependencies if you're using Gradle
+
+variables:
+  # Customize these values as needed for your setup
+  MAVEN_CLI_OPTS: "-B -DskipTests"  # Common options for Maven
+  JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64"  # Set your Java version here
+
+# Stage 1: Prepare (install dependencies)
+prepare:
+  stage: prepare
+  image: maven:3.8.5-openjdk-11  # Use a Maven image with JDK 11
+  script:
+    - echo "Preparing environment"
+    - mvn dependency:resolve  # Download dependencies
+
+# Stage 2: Build the project
+build:
+  stage: build
+  image: maven:3.8.5-openjdk-11
+  script:
+    - echo "Building the project"
+    - mvn compile ${MAVEN_CLI_OPTS}
+
+# Stage 3: Run Tests
+test:
+  stage: test
+  image: maven:3.8.5-openjdk-11
+  script:
+    - echo "Running unit tests"
+    - mvn test
+
+# Stage 4: Package (create executable JAR or WAR)
+package:
+  stage: package
+  image: maven:3.8.5-openjdk-11
+  script:
+    - echo "Packaging application"
+    - mvn package ${MAVEN_CLI_OPTS}
+  artifacts:
+    paths:
+      - target/*.jar  # or target/*.war if packaging a WAR file
+    expire_in: 1 week
+
+# Optional Stage 5: Deploy (to server or artifact repository)
+# Uncomment if you have deployment requirements
+# deploy:
+#   stage: deploy
+#   image: maven:3.8.5-openjdk-11
+#   script:
+#     - echo "Deploying application"
+#     - # Add your deployment script here, e.g., SCP, SFTP, or cloud-specific commands
+#   only:
+#     - main  # Only deploy from the main branch, adjust if necessary
