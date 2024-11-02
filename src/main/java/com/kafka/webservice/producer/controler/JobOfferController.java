@@ -1,8 +1,8 @@
-package com.kafka.webservice.kafka_ws.kafka.controler;
+package com.kafka.webservice.producer.controler;
 
-import com.kafka.webservice.kafka_ws.kafka.exception.ErrorMessage;
-import com.kafka.webservice.kafka_ws.kafka.models.JobOffer;
-import com.kafka.webservice.kafka_ws.kafka.services.JobOfferService;
+import com.kafka.webservice.producer.exception.ErrorMessage;
+import com.kafka.webservice.producer.models.JobOffer;
+import com.kafka.webservice.producer.services.JobOfferService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

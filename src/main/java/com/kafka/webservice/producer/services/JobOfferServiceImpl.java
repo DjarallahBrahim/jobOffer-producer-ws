@@ -1,7 +1,7 @@
-package com.kafka.webservice.kafka_ws.kafka.services;
+package com.kafka.webservice.producer.services;
 
-import com.kafka.webservice.kafka_ws.kafka.events.JobOfferCreatedEvent;
-import com.kafka.webservice.kafka_ws.kafka.models.JobOffer;
+import com.kafka.webservice.producer.events.JobOfferCreatedEvent;
+import com.kafka.webservice.producer.models.JobOffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.joboffer.consumer.ws</groupId>
-	<artifactId>joboffer-producer</artifactId>
+	<artifactId>job-offer-producer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>job offer producer</name>
 	<description>job offer producer</description>

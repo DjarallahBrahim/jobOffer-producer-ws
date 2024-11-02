@@ -1,4 +1,4 @@
-package com.kafka.webservice.kafka_ws.kafka.models;
+package com.kafka.webservice.producer.models;
 
 import java.math.BigDecimal;
 

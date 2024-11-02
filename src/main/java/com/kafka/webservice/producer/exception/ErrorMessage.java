@@ -1,4 +1,4 @@
-package com.kafka.webservice.kafka_ws.kafka.exception;
+package com.kafka.webservice.producer.exception;
 
 import java.util.Date;
 

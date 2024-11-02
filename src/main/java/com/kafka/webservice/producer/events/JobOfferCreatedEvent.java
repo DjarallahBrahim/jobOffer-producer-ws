@@ -1,4 +1,4 @@
-package com.kafka.webservice.kafka_ws.kafka.events;
+package com.kafka.webservice.producer.events;
 
 import java.math.BigDecimal;
 
