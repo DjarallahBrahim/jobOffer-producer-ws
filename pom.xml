@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>job offer producer</name>
 	<description>job offer producer</description>
+	<packaging>jar</packaging>
 	<url/>
 	<licenses>
 		<license/>
@@ -58,9 +59,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
