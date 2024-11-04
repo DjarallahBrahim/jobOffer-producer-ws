@@ -13,7 +13,7 @@ RUN mkdir -p /install/{env,artifacts,config-files,pre-install-scripts,work,post-
 # Copy config files
 COPY /docker/config-files /install/config-files
 COPY /docker/pre-install-scripts /install/pre-install-scripts
-COPY /docker/post-install-scripts /install/post-install-scripts
+#COPY /docker/post-install-scripts /install/post-install-scripts
 COPY /docker/install/install-artifact.sh /install/install-scripts/install-artifact.sh
 COPY /docker/environment.sh /install/env/environment.sh
 COPY /docker/entrypoint.sh /entrypoint.sh
