@@ -144,7 +144,7 @@
 
             <Valve className="org.apache.catalina.valves.AccessLogValve" directory="/proc/self/fd"
                    prefix="1" suffix="" rotatable="false"
-                   pattern="&#x0007B;&quot;&#x00040;timestamp&quot;:&quot;%{yyyy-MM-dd'T'HH:mm:ss.SSSZ}t&quot;,&quot;level&quot;:&quot;INFO&quot;,&quot;logger&quot;:&quot;BGL-GATEWAY-API&quot;,&quot;type&quot;:&quot;ACCESS&quot;,&quot;message&quot;:&quot;%h | %S | %r %s %b %D&quot; &#x0007D;" />
+                   pattern="&#x0007B;&quot;&#x00040;timestamp&quot;:&quot;%{yyyy-MM-dd'T'HH:mm:ss.SSSZ}t&quot;,&quot;level&quot;:&quot;INFO&quot;,&quot;logger&quot;:&quot;JOBOFFER-PRODUCER&quot;,&quot;type&quot;:&quot;ACCESS&quot;,&quot;message&quot;:&quot;%h | %S | %r %s %b %D&quot; &#x0007D;" />
 
         </Host>
     </Engine>
