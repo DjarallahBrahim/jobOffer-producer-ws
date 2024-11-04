@@ -3,9 +3,9 @@ set -eo pipefail
 
 if [ $1 == "generate" ]
 then
-    echo -n "-tomcat8.5" > /install/env/tomcat_version
-    echo -n "/usr/share/-tomcat8.5" > /install/env/catalina_home
-    echo -n "${JAVA8_HOME}" > /install/env/java_home
+    echo -n "tomcat:11.0.0-" > /install/env/tomcat_version
+    echo -n "/usr/local/tomcat" > /install/env/catalina_home
+    echo -n "${JAVA_HOME}" > /install/env/java_home
 elif [ $1 == "export" ]
 then
     TOMCAT_VERSION=$(cat /install/env/tomcat_version)

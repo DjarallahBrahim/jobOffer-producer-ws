@@ -1,0 +1,66 @@
+<settings>
+    <!-- Configure your active profile and Maven repository settings -->
+
+    <servers>
+        <!-- Server for Nexus, GitHub Packages, or other repository -->
+        <server>
+            <id>github</id>
+            <username>DjarallahBrahim</username> <!-- Environment variable for username -->
+            <password>{N9pet2CErnYHKPd8x77LILcWqg6YkNfddlmIscvc0X6s4DitwltvGvBdWM7j8dbG4T9wToll+TyaFjLUApa9vg==}</password> <!-- Encrypted password in settings-security.xml -->
+        </server>
+    </servers>
+
+    <mirrors>
+        <!-- Define mirrors to redirect requests to faster or more secure repositories -->
+        <mirror>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <profile>
+            <id>default-profile</id>
+            <repositories>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/DjarallahBrahim/jobOffer-core</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo.maven.apache.org/maven2</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>https://repo.maven.apache.org/maven2</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>default-profile</activeProfile>
+    </activeProfiles>
+</settings>
