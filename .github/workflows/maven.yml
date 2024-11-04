@@ -81,6 +81,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy_mvn
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Download target artifact
         uses: actions/download-artifact@v3
         with:
