@@ -10,12 +10,16 @@ do
     echo "Execute : $SCRIPT_FILE"
     . $SCRIPT_FILE
 done
-
+ls $CATALINA_BASE
+ls $CATALINA_BASE/webapps
 # Install artifact
-cd $CATALINA_BASE/webapps/bgl-gateway-api && cp /install/artifacts/api-gateway.war ./  && unzip api-gateway.war && rm api-gateway.war
+cd $CATALINA_BASE/webapps/job-offer-producer && cp /install/artifacts/job-offer-producer.war ./  && unzip job-offer-producer.war && rm job-offer-producer.war
 
 # Post install scripts
-cp /install/config-files/webapp/* /MIDDLE/CBW/bgl-gateway-api/webapps/bgl-gateway-api/WEB-INF/classes
+ls /install
+echo "ls install"
+ls /install/config-files
+cp /install/config-files/webapp/* /MIDDLE/CBW/job-offer-producer/webapps/job-offer-producer/WEB-INF/classes
 
 for SCRIPT_FILE in $(test -d /install/post-install-scripts/$SUB_DIR && find /install/post-install-scripts/$SUB_DIR -type f | sort)
 do
