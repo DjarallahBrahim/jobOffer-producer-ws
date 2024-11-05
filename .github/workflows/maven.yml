@@ -99,9 +99,6 @@ jobs:
         id: vars
         run: echo "BRANCH_NAME=${GITHUB_REF_NAME//\//-}" >> $GITHUB_ENV
 
-      - name: Print Transformed Branch Name
-        run: echo "Transformed branch name is $BRANCH_NAME"
-
       - name: Build Docker Image
         run: docker build -t djarallahbrahim/job-offer-producer-ws:$BRANCH_NAME -f docker/Dockerfile .
 
