@@ -95,8 +95,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      - name: Set Branch Name Variable
+        id: vars
+        run: echo "BRANCH_NAME=${GITHUB_REF_NAME//\//-}" >> $GITHUB_ENV
+
+      - name: Print Transformed Branch Name
+        run: echo "Transformed branch name is $BRANCH_NAME"
+
       - name: Build Docker Image
-        run: ls /home/runner/work/jobOffer-producer-ws/jobOffer-producer-ws && docker build -t djarallahbrahim/job-offer-producer-ws:latest -f docker/Dockerfile .
+        run: docker build -t djarallahbrahim/job-offer-producer-ws:$BRANCH_NAME -f docker/Dockerfile .
 
       - name: Push Docker Image
-        run: docker push djarallahbrahim/job-offer-producer-ws:latest
+        run: docker push djarallahbrahim/job-offer-producer-ws:$BRANCH_NAME

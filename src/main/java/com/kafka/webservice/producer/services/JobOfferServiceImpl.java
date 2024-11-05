@@ -2,6 +2,7 @@ package com.kafka.webservice.producer.services;
 
 import com.joboffer.ws.core.JobOfferCreatedEvent;
 import com.kafka.webservice.producer.models.JobOffer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,21 +35,10 @@ public class JobOfferServiceImpl implements JobOfferService{
         JobOfferCreatedEvent jobOfferCreatedEvent = new JobOfferCreatedEvent(jobOfferId,
                 jobOffer.getTitle(),jobOffer.getDescription(), jobOffer.getSalary());
 
-//        CompletableFuture<SendResult<String, JobOfferCreatedEvent>> future =
-//                kafkaTemplate.send(this.kafkaTopicName, jobOfferId, jobOfferCreatedEvent);
-//
-//        future.whenComplete((result, exception) -> {
-//           if(exception != null){
-//               LOGGER.error("[JobOfferServiceImpl] Faild to send message:" + exception.getMessage());
-//           }else{
-//               LOGGER.info("[JobOfferServiceImpl] Message send successfully: " + result.getRecordMetadata());
-//           }
-//        });
-//
-//        future.join();
-
+        ProducerRecord<String, JobOfferCreatedEvent> record = new ProducerRecord<>(this.kafkaTopicName, jobOfferId, jobOfferCreatedEvent);
+        record.headers().add("messageId", jobOfferId.getBytes());
         SendResult<String, JobOfferCreatedEvent> result =
-                kafkaTemplate.send(this.kafkaTopicName, jobOfferId, jobOfferCreatedEvent).get();
+                kafkaTemplate.send(record).get();
         LOGGER.info("[JobOfferServiceImpl] Topic Partitions=[{}]", result.getRecordMetadata().partition());
         LOGGER.info("[JobOfferServiceImpl] Topic name=[{}]", result.getRecordMetadata().topic());
         LOGGER.info("[JobOfferServiceImpl] Topic offset=[{}]", result.getRecordMetadata().offset());
