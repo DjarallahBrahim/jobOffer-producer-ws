@@ -1,7 +1,8 @@
 package com.kafka.webservice.producer.services;
 
 import com.joboffer.ws.core.JobOfferCreatedEvent;
-import com.kafka.webservice.producer.models.JobOffer;
+import com.kafka.webservice.producer.entity.JobOffer;
+import com.kafka.webservice.producer.repository.JobOfferRepository;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class JobOfferServiceImpl implements JobOfferService{
@@ -19,21 +20,36 @@ public class JobOfferServiceImpl implements JobOfferService{
 
     @Value("${topic.kafka.name}")
     private String kafkaTopicName;
+
+    private final JobOfferRepository jobOfferRepository;
     KafkaTemplate<String, JobOfferCreatedEvent> kafkaTemplate;
 
-    public JobOfferServiceImpl(KafkaTemplate<String, JobOfferCreatedEvent> kafkaTemplate) {
+    public JobOfferServiceImpl(KafkaTemplate<String, JobOfferCreatedEvent> kafkaTemplate, JobOfferRepository jobOfferRepository) {
         this.kafkaTemplate = kafkaTemplate;
+        this.jobOfferRepository = jobOfferRepository;
     }
 
     @Override
-    public String createJobOffer(JobOffer jobOffer) throws Exception{
+    public JobOffer saveJobOfferToBDD(JobOffer jobOffer) {
+        return jobOfferRepository.save(jobOffer);
+    }
+
+    @Override
+    public String savJobOfferToBddKafka(JobOffer jobOffer) throws Exception{
         LOGGER.info("[JobOfferServiceImpl] creating new JobOffer=[{}]", jobOffer);
 
-        String jobOfferId = UUID.randomUUID().toString();
-        //TODO save offer in databases;
+        String jobOfferId = jobOffer.getId();
+        saveJobOfferToBDD(jobOffer);
+        sendEventToKafka(jobOffer);
+        return jobOfferId;
+    }
 
-        JobOfferCreatedEvent jobOfferCreatedEvent = new JobOfferCreatedEvent(jobOfferId,
-                jobOffer.getTitle(),jobOffer.getDescription(), jobOffer.getSalary());
+    @Override
+    public void sendEventToKafka(JobOffer jobOffer) throws InterruptedException, ExecutionException {
+        String jobOfferId = "7f149b3e-0dcc-41d3-9ece-cd02fa610221";
+
+        JobOfferCreatedEvent jobOfferCreatedEvent = new JobOfferCreatedEvent(jobOffer.getId(),
+                jobOffer.getName(), jobOffer.getDescription(), jobOffer.getSalary());
 
         ProducerRecord<String, JobOfferCreatedEvent> record = new ProducerRecord<>(this.kafkaTopicName, jobOfferId, jobOfferCreatedEvent);
         record.headers().add("messageId", jobOfferId.getBytes());
@@ -42,7 +58,7 @@ public class JobOfferServiceImpl implements JobOfferService{
         LOGGER.info("[JobOfferServiceImpl] Topic Partitions=[{}]", result.getRecordMetadata().partition());
         LOGGER.info("[JobOfferServiceImpl] Topic name=[{}]", result.getRecordMetadata().topic());
         LOGGER.info("[JobOfferServiceImpl] Topic offset=[{}]", result.getRecordMetadata().offset());
-
-        return jobOfferId;
     }
+
+
 }

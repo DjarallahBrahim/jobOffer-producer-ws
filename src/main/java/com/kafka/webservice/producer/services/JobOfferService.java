@@ -1,8 +1,15 @@
 package com.kafka.webservice.producer.services;
 
-import com.kafka.webservice.producer.models.JobOffer;
+
+import com.kafka.webservice.producer.entity.JobOffer;
+
+import java.util.concurrent.ExecutionException;
 
 public interface JobOfferService {
 
-    String createJobOffer(JobOffer jobOffer) throws Exception;
+    public JobOffer saveJobOfferToBDD(JobOffer jobOffer);
+    String savJobOfferToBddKafka(JobOffer jobOffer) throws Exception;
+
+    void sendEventToKafka(JobOffer jobOffer) throws InterruptedException, ExecutionException;
+
 }
