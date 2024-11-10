@@ -1,6 +1,6 @@
 package com.kafka.webservice.producer.repository;
 
-import com.kafka.webservice.producer.entity.JobOffer;
+import com.joboffer.ws.core.jpa.entities.JobOffer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

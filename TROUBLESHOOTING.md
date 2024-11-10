@@ -31,4 +31,16 @@ headers.add(new RecordHeader("key", "value".getBytes()));
 producer.send(new ProducerRecord<>(topic, headers, key, value));
 ```
 
+### 2. @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.joboffer.ws.core.jpa.entities.JobOffer
+
+---
+
+**Exception: `org.springframework.dao.InvalidDataAccessApiUsageException: Not an entity`**
+**Explanation:**  
+This exception indicates that Spring cannot recognize a specified class as an entity, usually because the entity is located outside the default package scan path for entities.
+
+**Solution:**  
+Ensure that the entity’s package is included in the `@EntityScan` annotation in the main application class, allowing Spring to detect and manage the entity.
+
+
 ---

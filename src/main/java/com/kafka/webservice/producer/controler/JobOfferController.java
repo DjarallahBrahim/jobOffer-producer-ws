@@ -1,6 +1,6 @@
 package com.kafka.webservice.producer.controler;
 
-import com.kafka.webservice.producer.entity.JobOffer;
+import com.joboffer.ws.core.jpa.entities.JobOffer;
 import com.kafka.webservice.producer.exception.ErrorMessage;
 import com.kafka.webservice.producer.services.JobOfferService;
 import org.slf4j.Logger;

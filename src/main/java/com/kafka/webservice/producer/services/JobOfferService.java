@@ -1,7 +1,7 @@
 package com.kafka.webservice.producer.services;
 
 
-import com.kafka.webservice.producer.entity.JobOffer;
+import com.joboffer.ws.core.jpa.entities.JobOffer;
 
 import java.util.concurrent.ExecutionException;
 

@@ -1,7 +1,7 @@
 package com.kafka.webservice.producer.services;
 
 import com.joboffer.ws.core.JobOfferCreatedEvent;
-import com.kafka.webservice.producer.entity.JobOffer;
+import com.joboffer.ws.core.jpa.entities.JobOffer;
 import com.kafka.webservice.producer.repository.JobOfferRepository;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -46,10 +46,10 @@ public class JobOfferServiceImpl implements JobOfferService{
 
     @Override
     public void sendEventToKafka(JobOffer jobOffer) throws InterruptedException, ExecutionException {
-        String jobOfferId = "7f149b3e-0dcc-41d3-9ece-cd02fa610221";
+        String jobOfferId = jobOffer.getId();
 
-        JobOfferCreatedEvent jobOfferCreatedEvent = new JobOfferCreatedEvent(jobOffer.getId(),
-                jobOffer.getName(), jobOffer.getDescription(), jobOffer.getSalary());
+        JobOfferCreatedEvent jobOfferCreatedEvent = new JobOfferCreatedEvent(jobOffer.getId(), jobOffer.getName(),
+                jobOffer.getSkills(), jobOffer.getDescription(), jobOffer.getEmail(), jobOffer.getSalary());
 
         ProducerRecord<String, JobOfferCreatedEvent> record = new ProducerRecord<>(this.kafkaTopicName, jobOfferId, jobOfferCreatedEvent);
         record.headers().add("messageId", jobOfferId.getBytes());
