@@ -26,41 +26,41 @@ public class Config {
     @Autowired
     Environment environment;
 
-    @Bean
-    public Map<String, Object> producerConfigs() {
-        Map<String, Object> config = new HashMap<>();
-
-        // Using environment.getProperty for all properties
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, environment.getProperty("spring.kafka.producer.bootstrap-servers"));
-        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, environment.getProperty("spring.kafka.producer.key-serializer"));
-        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, environment.getProperty("spring.kafka.producer.value-serializer"));
-        config.put(ProducerConfig.ACKS_CONFIG, environment.getProperty("spring.kafka.producer.acks"));
-        config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.delivery.timeout.ms"));
-        config.put(ProducerConfig.LINGER_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.linger.ms"));
-        config.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.request.timeout.ms"));
-        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_DOC, environment.getProperty("spring.kafka.producer.enable.idempotence"));
-        config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, environment.getProperty("spring.kafka.producer.max.in.flight.requests.per.connection"));
-
-        // Return the final configuration map
-        return config;
-    }
-
-    @Bean
-    ProducerFactory<String, JobOfferCreatedEvent> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
-    }
-
-
-    @Bean
-    KafkaTemplate<String, JobOfferCreatedEvent> kafkaTemplate() {
-        return new KafkaTemplate<String, JobOfferCreatedEvent>(producerFactory());
-    }
-    @Bean
-    NewTopic createTopic(){
-       return TopicBuilder.name(this.kafkaTopicName)
-                .partitions(3)
-                .replicas(2)
-                .config("min.insync.replicas", "2") // Correct way to add config
-                .build();
-    }
+//    @Bean
+//    public Map<String, Object> producerConfigs() {
+//        Map<String, Object> config = new HashMap<>();
+//
+//        // Using environment.getProperty for all properties
+//        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, environment.getProperty("spring.kafka.producer.bootstrap-servers"));
+//        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, environment.getProperty("spring.kafka.producer.key-serializer"));
+//        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, environment.getProperty("spring.kafka.producer.value-serializer"));
+//        config.put(ProducerConfig.ACKS_CONFIG, environment.getProperty("spring.kafka.producer.acks"));
+//        config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.delivery.timeout.ms"));
+//        config.put(ProducerConfig.LINGER_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.linger.ms"));
+//        config.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.request.timeout.ms"));
+//        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_DOC, environment.getProperty("spring.kafka.producer.enable.idempotence"));
+//        config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, environment.getProperty("spring.kafka.producer.max.in.flight.requests.per.connection"));
+//
+//        // Return the final configuration map
+//        return config;
+//    }
+//
+//    @Bean
+//    ProducerFactory<String, JobOfferCreatedEvent> producerFactory() {
+//        return new DefaultKafkaProducerFactory<>(producerConfigs());
+//    }
+//
+//
+//    @Bean
+//    KafkaTemplate<String, JobOfferCreatedEvent> kafkaTemplate(ProducerFactory<String, Object> producerFactory) {
+//        return new KafkaTemplate<>(producerFactory());
+//    }
+//    @Bean
+//    NewTopic createTopic(){
+//       return TopicBuilder.name(this.kafkaTopicName)
+//                .partitions(3)
+//                .replicas(2)
+//                .config("min.insync.replicas", "2") // Correct way to add config
+//                .build();
+//    }
 }
