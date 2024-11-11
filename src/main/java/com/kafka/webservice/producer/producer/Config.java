@@ -3,9 +3,11 @@ package com.kafka.webservice.producer.producer;
 import com.joboffer.ws.core.JobOfferCreatedEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -21,48 +23,25 @@ public class Config {
     @Value("${topic.kafka.name}")
     private String kafkaTopicName;
 
-    @Value("${spring.kafka.producer.bootstrap-servers}")
-    private String bootstrapServers;
-
-    @Value("${spring.kafka.producer.key-serializer}")
-    private String keySerializer;
-
-    @Value("${spring.kafka.producer.value-serializer}")
-    private String valueSerializer;
-
-    @Value("${spring.kafka.producer.acks}")
-    private String acks;
-
-    @Value("${spring.kafka.producer.properties.delivery.timeout.ms}")
-    private String deliveryTimeout;
-
-    @Value("${spring.kafka.producer.properties.linger.ms}")
-    private String linger;
-
-    @Value("${spring.kafka.producer.properties.request.timeout.ms}")
-    private String requestTimeout;
-
-    @Value("${spring.kafka.producer.enable.idempotence}")
-    private String idempotence;
-
-    @Value("${spring.kafka.producer.max.in.flight.requests.per.connection}")
-    private String flightRequests;
+    @Autowired
+    Environment environment;
 
 
-    Map<String, Object> producerConfigs() {
+    public Map<String, Object> producerConfigs() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
-        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
-        config.put(ProducerConfig.ACKS_CONFIG, acks);
-        config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, deliveryTimeout);
-        config.put(ProducerConfig.LINGER_MS_CONFIG, linger);
-        config.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, requestTimeout);
-        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_DOC, idempotence);
-        config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, flightRequests);
-//        config.put(ProducerConfig.RETRIES_CONFIG, Integer.MAX_VALUE);
+        // Using environment.getProperty for all properties
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, environment.getProperty("spring.kafka.producer.bootstrap-servers"));
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, environment.getProperty("spring.kafka.producer.key-serializer"));
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, environment.getProperty("spring.kafka.producer.value-serializer"));
+        config.put(ProducerConfig.ACKS_CONFIG, environment.getProperty("spring.kafka.producer.acks"));
+        config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.delivery.timeout.ms"));
+        config.put(ProducerConfig.LINGER_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.linger.ms"));
+        config.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, environment.getProperty("spring.kafka.producer.properties.request.timeout.ms"));
+        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_DOC, environment.getProperty("spring.kafka.producer.enable.idempotence"));
+        config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, environment.getProperty("spring.kafka.producer.max.in.flight.requests.per.connection"));
 
+        // Return the final configuration map
         return config;
     }
 
