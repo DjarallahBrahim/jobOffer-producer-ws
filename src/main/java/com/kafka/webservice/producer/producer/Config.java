@@ -26,7 +26,7 @@ public class Config {
     @Autowired
     Environment environment;
 
-
+    @Bean
     public Map<String, Object> producerConfigs() {
         Map<String, Object> config = new HashMap<>();
 
