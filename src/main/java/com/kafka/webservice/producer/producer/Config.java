@@ -69,7 +69,7 @@ public class Config {
     NewTopic createTopic() {
         return TopicBuilder.name("job-offer-events-topic")
                 .partitions(3)
-                .replicas(2)
+                .replicas(1)
                 .configs(Map.of("min.insync.replicas","2"))
                 .build();
     }
