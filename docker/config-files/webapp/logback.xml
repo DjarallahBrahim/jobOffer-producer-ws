@@ -16,35 +16,7 @@
     <!-- Appenders files -->
     <!-- +++++++++++++++ -->
 
-    <appender name="FILE_STDOUT"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS_FOLDER}/${LOG_STDOUT_NAME}.log</file>
-        <encoder>
-            <Pattern>%d{HH:mm:ss} %-5level %class{26}||%msg%n%rEx</Pattern>
-        </encoder>
-        <!-- Rotate every day for log collection and archiving -->
-        <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${BACKUP_FOLDER}/${LOG_STDOUT_NAME}.%d{yyyy-MM-dd}.zip
-            </fileNamePattern>
-            <MaxHistory>${LOG_MAX_HISTORY}</MaxHistory>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="FILE_STDERR"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS_FOLDER}/${LOG_STDERR_NAME}.log</file>
-        <encoder>
-            <Pattern>%d{HH:mm:ss} %-5level %class{26}||%msg%n%rEx</Pattern>
-        </encoder>
-        <!-- Rotate every day for log collection and archiving -->
-        <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${BACKUP_FOLDER}/${LOG_STDERR_NAME}.%d{yyyy-MM-dd}.zip
-            </fileNamePattern>
-            <MaxHistory>${LOG_MAX_HISTORY}</MaxHistory>
-        </rollingPolicy>
-    </appender>
+    
 
     <!-- +++++++++++++++ -->
     <!-- Appenders Console -->
@@ -97,37 +69,24 @@
     <!-- +++++++++++++++++++++++++++++ -->
     <!-- Internal loggers (Java )      -->
     <!-- +++++++++++++++++++++++++++++ -->
-    <logger name="com.kafka.webservice.producer" additivity="false">
-        <level value="${LOG_LEVEL}" />
-        <if condition="isDefined(&quot;LOG_FILE_ACTIVATED&quot;) &amp;&amp; !isNull(&quot;LOG_FILE_ACTIVATED&quot;) &amp;&amp; !property(&quot;LOG_FILE_ACTIVATED&quot;).contains(&quot;false&quot;)">
-            <then>
-                <appender-ref ref="FILE_STDOUT" />
-            </then>
-        </if>
-        <appender-ref ref="CONSOLE-ACTIVITY" />
-    </logger>
+     <logger name="com.joboffer.consumer.ws.emailnotification" additivity="false">
+    <level value="${LOG_LEVEL}" />
+    <appender-ref ref="CONSOLE-ACTIVITY" />
+</logger>
 
     <!-- ++++++++++ -->
     <!-- Frameworks -->
     <!-- ++++++++++ -->
-    <logger name="org.springframework" additivity="false" level="WARN">
-        <if condition="isDefined(&quot;LOG_FILE_ACTIVATED&quot;) &amp;&amp; !isNull(&quot;LOG_FILE_ACTIVATED&quot;) &amp;&amp; !property(&quot;LOG_FILE_ACTIVATED&quot;).contains(&quot;false&quot;)">
-            <then>
-                <appender-ref ref="FILE_STDOUT" />
-            </then>
-        </if>
-        <appender-ref ref="CONSOLE-ACTIVITY" />
-    </logger>
+
+
+<logger name="org.springframework" additivity="false" level="WARN">
+    <appender-ref ref="CONSOLE-ACTIVITY" />
+</logger>
 
     <!-- ++++ -->
     <!-- ROOT -->
     <!-- ++++ -->
     <root level="WARN">
-        <if condition="isDefined(&quot;LOG_FILE_ACTIVATED&quot;) &amp;&amp; !isNull(&quot;LOG_FILE_ACTIVATED&quot;) &amp;&amp; !property(&quot;LOG_FILE_ACTIVATED&quot;).contains(&quot;false&quot;)">
-            <then>
-                <appender-ref ref="FILE_STDERR" />
-            </then>
-        </if>
-        <appender-ref ref="CONSOLE-JVM" />
-    </root>
+    <appender-ref ref="CONSOLE-JVM" />
+</root>
 </configuration>
