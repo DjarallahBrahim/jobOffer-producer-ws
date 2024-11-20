@@ -8,7 +8,7 @@ cp $CATALINA_HOME/conf/server.xml ${CATALINA_BASE}/conf
 
 cp $CATALINA_HOME/conf/web.xml ${CATALINA_BASE}/conf
 
-#cp /install/config-files/tomcat/server.xml $CATALINA_BASE/conf/
+cp /install/config-files/tomcat/server.xml $CATALINA_BASE/conf/
 
 cp $CATALINA_HOME/conf/tomcat-users.xml ${CATALINA_BASE}/conf
 
